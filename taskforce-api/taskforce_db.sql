@@ -6,12 +6,19 @@
 -- DROP SCHEMA task_force;
 
 -- Initialize environment
-CREATE USER taskforce WITH password 'yourpasswordhere';
+CREATE USER taskforce WITH password 'mamacita123';
 CREATE database taskforcedb WITH template=template0 owner=taskforce;
-\CONNECT taskforcedb;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA task_force TO taskforce;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA task_force TO taskforce;
+-- \CONNECT taskforcedb;
 CREATE SCHEMA task_force;
+GRANT ALL ON SCHEMA task_force TO taskforce;
+
+-- Only use these if permissions are still not working after creating tables
+-- GRANT ALL ON TABLE task_force.task_status TO taskforce;
+-- GRANT ALL ON TABLE task_force.tasks TO taskforce;
+-- GRANT ALL ON TABLE task_force.users TO taskforce;
+-- GRANT ALL ON SEQUENCE task_force.task_status_id_seq TO postgres;
+-- GRANT ALL ON SEQUENCE task_force.tasks_task_id_seq TO postgres;
+-- GRANT ALL ON SEQUENCE task_force.users_user_id_seq TO postgres;
 
 -- DATA DEFINITIONS
 
