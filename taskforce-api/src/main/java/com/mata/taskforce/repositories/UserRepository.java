@@ -1,14 +1,14 @@
 package com.mata.taskforce.repositories;
 
-import com.mata.taskforce.domain.User;
-import com.mata.taskforce.exceptions.TfAuthException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
-	Integer create(String firstName, String lastName, String email, String password) throws TfAuthException;
+import com.mata.taskforce.model.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer>{
+
+	User findByEmail(String email);
 	
-	User findByEmailAndPassword(String email, String password) throws TfAuthException;
-	
-	Boolean doesEmailExist(String email);
-	
-	User findById(Integer userId);
+	Boolean existsByEmail(String email);
 }

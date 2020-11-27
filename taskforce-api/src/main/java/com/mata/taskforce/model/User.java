@@ -1,13 +1,44 @@
-package com.mata.taskforce.domain;
+package com.mata.taskforce.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users", schema = "task_force")
 public class User {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
+	
+	@Column(name = "first_name")
 	private String firstName;
+	
+	@Column(name = "last_name")
 	private String lastName;
+	
+	@Column(name = "email", unique = true)
 	private String email;
+	
+	@Column(name = "password")
 	private String password;
+	
+	public User() {
+		super();
+	}
 		
+	public User(String firstName, String lastName, String email, String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+	
 	public User(Integer userId, String firstName, String lastName, String email, String password) {
 		super();
 		this.userId = userId;

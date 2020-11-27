@@ -2,19 +2,17 @@ package com.mata.taskforce.services;
 
 import java.util.List;
 
-import com.mata.taskforce.domain.Task;
-import com.mata.taskforce.exceptions.TfBadRequestException;
-import com.mata.taskforce.exceptions.TfResourceNotFoundException;
+import com.mata.taskforce.model.Task;
 
 public interface TaskService {
 	
-	List<Task> fetchallTasks(Integer userId);
+	List<Task> fetchAllUserTasks(Integer userId);
 	
-	Task fetchTaskById(Integer userId, Integer taskId) throws TfResourceNotFoundException;
+	Task fetchTaskById(Integer userId, Integer taskId);
 	
-	Task addTask(Integer userId, String title, String description) throws TfBadRequestException;
+	Task addTask(Integer userId, Task task);
 	
-	void updateTask(Integer userId, Integer taskId, Task task) throws TfBadRequestException;
+	Task updateTask(Integer userId, Integer taskId, Task updatedTask);
 	
-	void removeTask(Integer userId, Integer taskId) throws TfResourceNotFoundException;
+	void removeTask(Integer userId, Integer taskId);
 }

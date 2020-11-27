@@ -2,19 +2,13 @@ package com.mata.taskforce.repositories;
 
 import java.util.List;
 
-import com.mata.taskforce.domain.Task;
-import com.mata.taskforce.exceptions.TfBadRequestException;
-import com.mata.taskforce.exceptions.TfResourceNotFoundException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TaskRepository {
+import com.mata.taskforce.model.Task;
+
+@Repository
+public interface TaskRepository extends JpaRepository<Task, Integer>{
 	
-	List<Task> findAll(Integer userId) throws TfResourceNotFoundException;
-	
-	Task findById(Integer userId, Integer taskId) throws TfResourceNotFoundException;
-	
-	Integer create(Integer userId, String title, String description) throws TfBadRequestException;
-	
-	void update(Integer userId, Integer taskId, Task task) throws TfBadRequestException;
-	
-	void removeById(Integer userId, Integer taskId) throws TfResourceNotFoundException;
+	List<Task> findByUserId(Integer userId);
 }

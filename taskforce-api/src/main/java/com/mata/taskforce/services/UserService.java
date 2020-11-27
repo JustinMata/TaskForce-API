@@ -1,10 +1,9 @@
 package com.mata.taskforce.services;
 
-import com.mata.taskforce.domain.User;
-import com.mata.taskforce.exceptions.TfAuthException;
+import com.mata.taskforce.model.User;
 
 public interface UserService {
-	User validateUser(String email, String password) throws TfAuthException;
+	User validateUser(String email, String password);
 	
-	User registerUser(String firstName, String lastName, String email, String password) throws TfAuthException;
+	User registerUser(User user);
 }

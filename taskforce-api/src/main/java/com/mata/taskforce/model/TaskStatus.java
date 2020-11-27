@@ -1,11 +1,11 @@
-package com.mata.taskforce.domain;
+package com.mata.taskforce.model;
 
 import java.util.HashMap;
 
 public enum TaskStatus {
 	PLANNED(1), IN_PROGRESS(2), TESTING(3), COMPLETED(4);
 	
-	private int value;
+	private final int value;
 	private static HashMap<Integer, TaskStatus> map = new HashMap<Integer, TaskStatus>();
 	
 	private TaskStatus(int value) {

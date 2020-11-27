@@ -1,4 +1,4 @@
-package com.mata.taskforce.resources;
+package com.mata.taskforce.controllers;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mata.taskforce.Constants;
-import com.mata.taskforce.domain.User;
+import com.mata.taskforce.model.User;
 import com.mata.taskforce.services.UserService;
 
 import io.jsonwebtoken.Jwts;
@@ -21,7 +21,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserResource {
+public class UserController {
 	@Autowired
 	UserService userService;
 	
@@ -34,13 +34,8 @@ public class UserResource {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
-		String firstName = (String) userMap.get("firstName");
-		String lastName = (String) userMap.get("lastName");
-		String email = (String) userMap.get("email");
-		String password = (String) userMap.get("password");
-		User user = userService.registerUser(firstName, lastName, email, password);
-		return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
+	public ResponseEntity<User> registerUser(@RequestBody User user) {
+		return ResponseEntity.ok(userService.registerUser(user));
 	}
 	
 	private Map<String, String> generateJWTToken(User user) {

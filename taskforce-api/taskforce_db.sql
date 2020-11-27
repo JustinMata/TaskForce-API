@@ -23,7 +23,6 @@ GRANT ALL ON SCHEMA task_force TO taskforce;
 -- DATA DEFINITIONS
 
 -- Hard reset tables
--- DROP TABLE task_status;
 -- DROP TABLE tasks;
 -- DROP TABLE users;
 
@@ -36,43 +35,24 @@ CREATE TABLE IF NOT EXISTS users(
 	password varchar(256) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS task_status(
-	id serial PRIMARY KEY,
-	taskStatus varchar UNIQUE NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS tasks(
 	task_id serial PRIMARY KEY,
 	user_id integer NOT NULL,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
 	createdOn date NOT NULL DEFAULT current_date,
-	taskStatus integer NOT NULL
+	taskStatus varchar(20) NOT NULL
 );
 
 ALTER TABLE tasks ADD CONSTRAINT tasks_users_fk
 FOREIGN KEY(user_id) REFERENCES users(user_id);
 
-ALTER TABLE tasks ADD CONSTRAINT tasks_taskStatus_fk
-FOREIGN KEY(taskStatus) REFERENCES task_status(id);
-
-ALTER TABLE tasks ALTER COLUMN taskStatus SET DEFAULT 1;
+ALTER TABLE tasks ALTER COLUMN taskStatus SET DEFAULT 'PLANNED';
 
 -- DATA MANIPULATION
 
 -- Soft Reset tables
 -- DELETE FROM users;
--- DELETE FROM task_status;
 -- DELETE FROM tasks;
 -- ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
--- ALTER SEQUENCE task_status_id_seq RESTART WITH 1;
 -- ALTER SEQUENCE tasks_task_id_seq RESTART WITH 1;
-
--- Intialize all values for task statuses
-INSERT INTO task_status VALUES(DEFAULT, 'Planned');
-
-INSERT INTO task_status VALUES(DEFAULT, 'In Progress');
-
-INSERT INTO task_status VALUES(DEFAULT, 'Testing');
-
-INSERT INTO task_status VALUES(DEFAULT, 'Completed');

@@ -1,19 +1,52 @@
-package com.mata.taskforce.domain;
+package com.mata.taskforce.model;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tasks", schema = "task_force")
 public class Task {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer taskId;
+	
+	@Column(name = "user_id")
 	private Integer userId;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "description")
 	private String description;
-	private String dateOfCreation;
+	
+	@Column(name = "createdon", insertable = false)
+	private LocalDate dateOfCreation;
+	
+	@Column(name = "taskstatus", insertable = false)
+	@Enumerated(EnumType.STRING)
 	private TaskStatus status;
 	
-	public Task(Integer taskId, Integer userId, String title, String description) {
-		this(taskId, userId, title, description, "No Date", TaskStatus.valueOf(1));
+	public Task() {
+		super();
 	}
 	
-	public Task(Integer taskId, Integer userId, String title, String description, String dateOfCreation, TaskStatus status) {
+	public Task(Integer userId, String title, String description) {
+		super();
+		this.userId = userId;
+		this.title = title;
+		this.description = description;
+	}
+	
+	public Task(Integer taskId, Integer userId, String title, String description, LocalDate dateOfCreation, TaskStatus status) {
 		super();
 		this.taskId = taskId;
 		this.userId = userId;
@@ -34,6 +67,10 @@ public class Task {
 	public Integer getUserId() {
 		return userId;
 	}
+	
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public String getTitle() {
 		return title;
@@ -51,8 +88,12 @@ public class Task {
 		this.description = description;
 	}
 
-	public String getDateOfCreation() {
+	public LocalDate getDateOfCreation() {
 		return dateOfCreation;
+	}
+	
+	public void setDateOfCreation(LocalDate date) {
+		this.dateOfCreation = date;
 	}
 
 	public TaskStatus getStatus() {
